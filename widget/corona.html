@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link type="text/css" rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <div id="container">
+        <div class="row header">
+            <div>COVID-19</div>
+            <div id="country"></div>
+        </div>
+        <div class="row total">
+            <div class="key">Total Cases</div>
+            <div id="tot-cases" class="value"></div>
+        </div>
+        <div class="row">
+            <div class="key">New Cases</div>
+            <div id="new-cases" class="value new"></div>
+        </div class="row">
+        <div class="row">
+            <div class="key">Total Deaths</div>
+            <div id="tot-deaths" class="value deaths"></div>
+        </div>
+        <div class="row">
+            <div class="key">New Deaths</div>
+            <div id="new-deaths" class="value new"></div>
+        </div>
+        <div class="row">
+            <div class="key">Recovered</div>
+            <div id="tot-recover" class="value recovered"></div>
+        </div>
+        <div class="row">
+            <div class="key">Active Cases</div>
+            <div id="active-cases" class="value active"></div>
+        </div>
+        <div class="footer">Built with <a href="https://dataflowkit.com" target="blank">DataflowKit<a></div>
+    </div>
+    </div>
+</body>
+<!-- <script src="https://gist.github.com/incredimike/1469814.js"></script> -->
+<script src="./crnwdg.js"></script>
+</html>
