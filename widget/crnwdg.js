@@ -82,7 +82,7 @@ var CoronaWidget = (function () {
                 if (this.readyState == 4) {
                     if (this.status == 200) {
                         resp = JSON.parse(this.responseText);
-                        resolve(resp.country)
+                        resolve(resp.countryCode)
                     } else {
                         reject(xhr.status)
                     }
@@ -101,11 +101,11 @@ var CoronaWidget = (function () {
 
     Widget.prototype.init = function () {
         this._initUI();
-        this.__initCountry().then((country) => {
-            if (country == 'United States') {
+        this.__initCountry().then((countryCode) => {
+            if (countryCode == 'US') {
                 this.ui.country.innerHTML = 'USA';
             } else {
-                this.ui.country.innerHTML = country;
+                this.ui.country.innerHTML = countryList[countryCode];
             }
             this._updateData();
         }).catch((err) => {

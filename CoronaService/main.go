@@ -16,7 +16,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/prprprus/scheduler"
+	"github.com/jasonlvhit/gocron"
 )
 
 type Config struct {
@@ -31,19 +31,12 @@ type HTMLServer struct {
 
 var (
 	payloadFilePath   = "coronaPayload.json"
-	dfkParseAPIServer = flag.String("p", "http://0.0.0.0:8082/v1/serp?api_key=", "DFK API Server address")
-	mongoHost         = flag.String("m", "127.0.0.1", "MongoDB server address")
+	dfkParseAPIServer = flag.String("p", "http://0.0.0.0:8082/v1/parse?api_key=", "DFK API Server address")
 	apiKey            = flag.String("a", "15193b29b58de6b74ef8c8040adc6a2692975d26dc3b9198f4d7ed7ae6fc23e8", "DFK API Key")
 	coronaState       []map[string]string
 )
 
 func init() {
-	/* if os.Getenv("CORONA_SERVER") != "" {
-		viper.Set("CORONA_SERVER", os.Getenv("CORONA_SERVER"))
-	} else {
-		viper.Set("CORONA_SERVER", "127.0.0.1:8008")
-	}
-	flag.Parse() */
 }
 
 func main() {
@@ -82,16 +75,13 @@ func Start(cfg Config) *HTMLServer {
 	router.HandleFunc("/corona/{cntr}", coronaHandler)
 	router.HandleFunc("/corona", coronaHandler)
 
-	s, err := scheduler.NewScheduler(1000)
-	if err != nil {
-		panic(err) // just example
-	}
-
-	s.Every().Hour(1).Do(updateCoronaStat)
-	s.Every().Do(updateCoronaStat)
-
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
+
+	go func() {
+		gocron.Every(1).Hour().From(gocron.NextTick()).Do(updateCoronaStat)
+		<-gocron.Start()
+	}()
 
 	go func() {
 		fmt.Printf("\nDataflow Kit Single Process Server : started (HTTP) : Host=%v\n", htmlServer.server.Addr)
@@ -139,6 +129,8 @@ func coronaHandler(w http.ResponseWriter, r *http.Request) {
 
 	if coronaState == nil || len(coronaState) == 0 {
 		fmt.Println("This shouldn't happen")
+		http.Error(w, "Currently statistic is unavalialbe. Try later", http.StatusInternalServerError)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
