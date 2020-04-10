@@ -84,7 +84,7 @@ func Start(cfg Config) *HTMLServer {
 	}()
 
 	go func() {
-		fmt.Printf("\nDataflow Kit Single Process Server : started (HTTP) : Host=%v\n", htmlServer.server.Addr)
+		fmt.Printf("\nCOVID-19 Service : started : Host=%v\n", htmlServer.server.Addr)
 		htmlServer.server.ListenAndServe()
 		htmlServer.wg.Done()
 	}()
@@ -97,20 +97,20 @@ func (htmlServer *HTMLServer) Stop() error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	fmt.Printf("\nDataflow Kit Single process Server : stopping\n")
+	fmt.Printf("\nCOVID-19 Service : stopping\n")
 
 	// Attempt the graceful shutdown by closing the listener
 	// and completing all inflight requests
 	if err := htmlServer.server.Shutdown(ctx); err != nil {
 		// Looks like we timed out on the graceful shutdown. Force close.
 		if err := htmlServer.server.Close(); err != nil {
-			fmt.Printf("\nDataflow Kit Single process Server : stopping : Error=%v\n", err)
+			fmt.Printf("\nCOVID-19 Service :  stopping : Error=%v\n", err)
 			return err
 		}
 	}
 	// Wait for the listener to report that it is closed.
 	htmlServer.wg.Wait()
-	fmt.Printf("\nDataflow Kit Single Process Server : Stopped\n")
+	fmt.Printf("\nCOVID-19 Service : Stopped\n")
 	return nil
 }
 
