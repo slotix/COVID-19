@@ -1,4 +1,4 @@
-module github.com/slotix/COVID-19/CoronaService
+module github.com/slotix/COVID-19/covid-19-service
 
 go 1.14
 
