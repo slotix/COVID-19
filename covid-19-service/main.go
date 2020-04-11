@@ -138,12 +138,10 @@ func coronaHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	country, ok := vars["cntr"]
 	if !ok {
-		country = "World"
-	}
-	if strings.ToLower(country) == "all" {
 		writeResponse(w, covidStatistics)
 		return
 	}
+	
 	countryStatistic := map[string]string{}
 	for _, countryStatistic = range covidStatistics {
 		if strings.ToLower(countryStatistic["Country_text"]) == strings.ToLower(country) {
