@@ -46,11 +46,15 @@ func main() {
 	htmlServer := Start(serverCfg)
 	defer htmlServer.Stop()
 
+	stopScheduler := make(chan struct{})
+	go runScheduler(stopScheduler)
+
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, os.Interrupt)
 	<-sigChan
+	close(stopScheduler)
 
-	fmt.Println("Single process server : shutting down")
+	fmt.Println("COVID-19 process server : shutting down")
 }
 
 func Start(cfg Config) *HTMLServer {
@@ -77,11 +81,6 @@ func Start(cfg Config) *HTMLServer {
 
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
-
-	go func() {
-		gocron.Every(1).Hour().From(gocron.NextTick()).Do(updateCoronaStat)
-		<-gocron.Start()
-	}()
 
 	go func() {
 		fmt.Printf("\nCOVID-19 Service : started : Host=%v\n", htmlServer.server.Addr)
@@ -114,6 +113,18 @@ func (htmlServer *HTMLServer) Stop() error {
 	return nil
 }
 
+func runScheduler(done chan struct{}) {
+	gocron.Every(1).Hour().From(gocron.NextTick()).Do(updateCoronaStat)
+	for {
+		select {
+		case <-gocron.Start():
+		case <-done:
+			fmt.Println("Scheduler shutdowned")
+			return
+		}
+	}
+}
+
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
@@ -141,7 +152,7 @@ func coronaHandler(w http.ResponseWriter, r *http.Request) {
 		writeResponse(w, covidStatistics)
 		return
 	}
-	
+
 	countryStatistic := map[string]string{}
 	for _, countryStatistic = range covidStatistics {
 		if strings.ToLower(countryStatistic["Country_text"]) == strings.ToLower(country) {
