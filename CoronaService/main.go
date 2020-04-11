@@ -33,7 +33,7 @@ var (
 	payloadFilePath   = "coronaPayload.json"
 	dfkParseAPIServer = flag.String("p", "http://0.0.0.0:8082/v1/parse?api_key=", "DFK API Server address")
 	apiKey            = flag.String("a", "15193b29b58de6b74ef8c8040adc6a2692975d26dc3b9198f4d7ed7ae6fc23e8", "DFK API Key")
-	coronaState       []map[string]string
+	covidStatistics   []map[string]string
 )
 
 func init() {
@@ -127,7 +127,7 @@ func coronaHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if coronaState == nil || len(coronaState) == 0 {
+	if covidStatistics == nil || len(covidStatistics) == 0 {
 		fmt.Println("This shouldn't happen")
 		http.Error(w, "Currently statistic is unavalialbe. Try later", http.StatusInternalServerError)
 		return
@@ -140,18 +140,22 @@ func coronaHandler(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		country = "World"
 	}
-
-	covidStatisctic := map[string]string{}
-	for _, covidStatisctic = range coronaState {
-		if strings.ToLower(covidStatisctic["Country_text"]) == strings.ToLower(country) {
-			writeResponse(w, covidStatisctic)
+	if strings.ToLower(country) == "all" {
+		writeResponse(w, covidStatistics)
+		return
+	}
+	countryStatistic := map[string]string{}
+	for _, countryStatistic = range covidStatistics {
+		if strings.ToLower(countryStatistic["Country_text"]) == strings.ToLower(country) {
+			writeResponse(w, countryStatistic)
 			return
 		}
 	}
 
 	fmt.Println("Not Found")
-	covidStatisctic = coronaState[0]
-	writeResponse(w, covidStatisctic)
+	countryStatistic = covidStatistics[0]
+	writeResponse(w, countryStatistic)
+
 }
 
 func updateCoronaStat() {
@@ -181,15 +185,15 @@ func updateCoronaStat() {
 		fmt.Printf("Failed read response body: %s", err.Error())
 		return
 	}
-	err = json.Unmarshal(body, &coronaState)
+	err = json.Unmarshal(body, &covidStatistics)
 	if err != nil {
 		fmt.Printf("Failed unmarshal response into map: %s", err.Error())
 		return
 	}
 }
 
-func writeResponse(w http.ResponseWriter, covidStatisctic map[string]string) {
-	buff, err := json.Marshal(covidStatisctic)
+func writeResponse(w http.ResponseWriter, countryStatistic interface{}) {
+	buff, err := json.Marshal(countryStatistic)
 	if err != nil {
 		fmt.Printf("Failed to marshal corona: %s", err.Error())
 		http.Error(w, "Failed to retrieve COVID-19 info", http.StatusInternalServerError)
