@@ -32,7 +32,7 @@ type HTMLServer struct {
 var (
 	payloadFilePath   = "coronaPayload.json"
 	dfkParseAPIServer = flag.String("p", "https://api.dataflowkit.com/v1/parse?api_key=", "DFK API Server address")
-	apiKey            = flag.String("a", "15193b29b58de6b74ef8c8040adc6a2692975d26dc3b9198f4d7ed7ae6fc23e8", "DFK API Key")
+	apiKey            = flag.String("a", "", "DFK API Key")
 	covidStatistics   []map[string]string
 )
 
@@ -54,9 +54,10 @@ func main() {
 	<-sigChan
 	close(stopScheduler)
 
-	fmt.Println("COVID-19 process server : shutting down")
+	fmt.Println("COVID-19 Service: shutting down")
 }
 
+//Start HTTP server to handle API endpoints.
 func Start(cfg Config) *HTMLServer {
 	flag.Parse()
 
@@ -76,12 +77,16 @@ func Start(cfg Config) *HTMLServer {
 	//liveness check
 	router.HandleFunc("/ping", healthCheckHandler)
 
-	router.HandleFunc("/v1/{cntr}", coronaHandler)
-	router.HandleFunc("/v1", coronaHandler)
+	//Get COVID-19 cases for specified country.
+	router.HandleFunc("/v1/{cntr}", covidHandler)
+	//Get all COVID-19 cases
+	router.HandleFunc("/v1", covidHandler)
 
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
 
+	// this function launches updateCovidStat func to pull
+	// updated information periodically (every hour)
 	go func() {
 		fmt.Printf("\nCOVID-19 Service : started : Host=%v\n", htmlServer.server.Addr)
 		htmlServer.server.ListenAndServe()
@@ -90,6 +95,7 @@ func Start(cfg Config) *HTMLServer {
 	return &htmlServer
 }
 
+//Stop HTTP server.
 func (htmlServer *HTMLServer) Stop() error {
 	// Create a context to attempt a graceful 5 second shutdown.
 	const timeout = 5 * time.Second
@@ -114,7 +120,7 @@ func (htmlServer *HTMLServer) Stop() error {
 }
 
 func runScheduler(done chan struct{}) {
-	gocron.Every(1).Hour().From(gocron.NextTick()).Do(updateCoronaStat)
+	gocron.Every(1).Hour().From(gocron.NextTick()).Do(updateCovidStat)
 	for {
 		select {
 		case <-gocron.Start():
@@ -131,7 +137,10 @@ func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, `{"alive":true}`)
 }
 
-func coronaHandler(w http.ResponseWriter, r *http.Request) {
+// covidHandler handles API /v1 and /v1/{cntr} endpoints
+// covidStatistics variable is parsed here according to
+// passed {cntr} parameter
+func covidHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method == "OPTIONS" {
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
@@ -139,7 +148,6 @@ func coronaHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if covidStatistics == nil || len(covidStatistics) == 0 {
-		fmt.Println("This shouldn't happen")
 		http.Error(w, "Currently statistic is unavalialbe. Try later", http.StatusInternalServerError)
 		return
 	}
@@ -148,11 +156,13 @@ func coronaHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	country, ok := vars["cntr"]
+	//return results for all coutries
 	if !ok {
 		writeResponse(w, covidStatistics)
 		return
 	}
 
+	//return results for specified country
 	countryStatistic := map[string]string{}
 	for _, countryStatistic = range covidStatistics {
 		if strings.ToLower(countryStatistic["Country_text"]) == strings.ToLower(country) {
@@ -161,22 +171,26 @@ func coronaHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	//If specifid country not found return the very first result (world)
 	fmt.Println("Not Found")
 	countryStatistic = covidStatistics[0]
 	writeResponse(w, countryStatistic)
 
 }
 
-func updateCoronaStat() {
+// updateCovidStat - send requests to DFK API
+// Then DFK API pulls an actual COVID-19 data to covidStatistics map
+func updateCovidStat() {
+	//Load Payload to request live stats from worldometers.info
 	payload, err := ioutil.ReadFile(payloadFilePath)
 	if err != nil {
 		fmt.Printf("An error occure during reading payload file: %s", err.Error())
 		return
 	}
-
+	//Send POST request to Dataflowkit Scraping API.
 	response, err := http.Post(*dfkParseAPIServer+*apiKey, "application/json", bytes.NewReader(payload))
 	if err != nil {
-		fmt.Printf("Post DFK API request failed: %s", err.Error())
+		fmt.Printf("Failed to post request to DFK Scraper API: %s", err.Error())
 		return
 	}
 	defer response.Body.Close()
@@ -186,9 +200,10 @@ func updateCoronaStat() {
 			fmt.Printf("Failed to read respose body: %s", err.Error())
 			return
 		}
-		fmt.Printf("Failed get corona virus state. Server returned: %s", string(body))
+		fmt.Printf("Failed to get COVID-19 statistics. Server returned: %s", string(body))
 		return
 	}
+	//StatusOk
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		fmt.Printf("Failed read response body: %s", err.Error())
