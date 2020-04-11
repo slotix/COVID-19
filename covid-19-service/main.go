@@ -37,6 +37,7 @@ var (
 )
 
 func init() {
+	flag.Parse()
 }
 
 func main() {
@@ -59,10 +60,6 @@ func main() {
 
 //Start HTTP server to handle API endpoints.
 func Start(cfg Config) *HTMLServer {
-	flag.Parse()
-
-	_, cancel := context.WithCancel(context.Background())
-	defer cancel()
 
 	router := mux.NewRouter()
 
@@ -125,7 +122,7 @@ func runScheduler(done chan struct{}) {
 		select {
 		case <-gocron.Start():
 		case <-done:
-			fmt.Println("Scheduler shutdowned")
+			fmt.Println("Scheduler: Stopped")
 			return
 		}
 	}
