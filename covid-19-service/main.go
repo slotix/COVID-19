@@ -72,8 +72,8 @@ func Start(cfg Config) *HTMLServer {
 	//liveness check
 	router.HandleFunc("/ping", healthCheckHandler)
 
-	router.HandleFunc("/corona/{cntr}", coronaHandler)
-	router.HandleFunc("/corona", coronaHandler)
+	router.HandleFunc("/v1/{cntr}", coronaHandler)
+	router.HandleFunc("/v1", coronaHandler)
 
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
