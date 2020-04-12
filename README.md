@@ -1,4 +1,4 @@
-# Coronavirus (COVID-19) open API
+# Coronavirus (COVID-19) open Go API
 
 ![alt tag](https://github.com/slotix/COVID-19/raw/master/img/COVID-19.png)
 This API grabs live statistics from  https://www.worldometers.info/coronavirus/#countries web site periodically. 
