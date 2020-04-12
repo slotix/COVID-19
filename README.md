@@ -1,5 +1,6 @@
 # Coronavirus (COVID-19) open API
 
+![alt tag](https://github.com/slotix/COVID-19/raw/master/img/COVID-19.png)
 This API grabs live statistics from  https://www.worldometers.info/coronavirus/#countries web site periodically. 
 
 It uses [Dataflow Kit API](https://dataflowkit.com) to scrape source web site. 
@@ -11,7 +12,7 @@ It uses [Dataflow Kit API](https://dataflowkit.com) to scrape source web site.
 
 - If no `{cntr}` parameter specified the full dataset will be returned.
 - Specify `{cntr}` parameter to extract results *for this country only*.
-- Specify ==world== as `{cntr}` parameter to extract summary results *for the whole world.
+- Specify *world* as `{cntr}` parameter to extract summary results *for the whole world.*
 
 ## Installation
 
