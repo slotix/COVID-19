@@ -52,3 +52,18 @@ Or open  http://0.0.0.0:8008/v1 in your browser.
 https://covid-19.dataflowkit.com/v1
 
 https://covid-19.dataflowkit.com/v1/world
+
+
+## Informer.
+
+Our public informer is available at: 
+
+https://covid-19.dataflowkit.com/covid-19.html
+
+You can use the following code to embed it into other HTML pages: 
+
+```html
+    <iframe src="https://covid-19.dataflowkit.com/covid-19.html" 
+        frameborder="0" scrolling="no" width="200" height="220">
+    </iframe>
+```
