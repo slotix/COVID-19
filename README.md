@@ -5,6 +5,8 @@ This API grabs live statistics from  https://www.worldometers.info/coronavirus/#
 
 It uses [Dataflow Kit API](https://dataflowkit.com) to scrape source web site. 
 
+<iframe src="https://covid-19.dataflowkit.com/covid-19.html" frameborder="0" scrolling="no" width="200" height="220"></iframe>
+
 ## Endpoints
 
 `GET /v1` - Get all COVID-19 cases
