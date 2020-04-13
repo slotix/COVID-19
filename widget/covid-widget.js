@@ -1,5 +1,6 @@
 var CoronaWidget = (function () {
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+    const countryCodeExpression = /loc=([\w]{2})/;
 
     function Widget() {
         this.url = 'http://0.0.0.0:8008/v1';
@@ -37,7 +38,7 @@ var CoronaWidget = (function () {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     resp = JSON.parse(this.responseText);
-                    cntr.innerHTML = resp['Country_text'] === ''? '0': resp['Country_text'];
+                    cntr.innerHTML = resp['Country_text'] === '' ? '0' : resp['Country_text'];
                     tot_cases.innerHTML = resp['Total Cases_text'] === '' ? '0' : resp['Total Cases_text'];
                     new_cases.innerHTML = resp['New Cases_text'] === '' ? '0' : resp['New Cases_text'];
                     tot_deaths.innerHTML = resp['Total Deaths_text'] === '' ? '0' : resp['Total Deaths_text'];
@@ -61,7 +62,7 @@ var CoronaWidget = (function () {
 
         if (cntr.innerHTML !== '') {
             this.url += '/' + cntr.innerHTML;
-        } 
+        }
         xhr.open('GET', this.url, true);
         xhr.send();
     }
@@ -85,8 +86,12 @@ var CoronaWidget = (function () {
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4) {
                     if (this.status == 200) {
-                        resp = JSON.parse(this.responseText);
-                        resolve(resp.countryCode)
+                        result = countryCodeExpression.exec(this.responseText)
+                        if (result == null || result[1] === '') {
+                            console.log('Failed determine country code');
+                            resolve('world');
+                        }
+                        resolve(result[1])
                     } else {
                         reject(xhr.status)
                     }
@@ -97,7 +102,7 @@ var CoronaWidget = (function () {
                 reject('timeout')
             }
 
-            xhr.open('GET', 'http://ip-api.com/json', true);
+            xhr.open('GET', 'https://www.cloudflare.com/cdn-cgi/trace', true);
             xhr.send();
         });
 
