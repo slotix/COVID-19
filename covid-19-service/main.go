@@ -84,8 +84,7 @@ func Start(cfg Config) *HTMLServer {
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
 
-	// this function launches updateCovidStat func to pull
-	// updated information periodically (every hour)
+	
 	go func() {
 		fmt.Printf("\nCOVID-19 Service : started : Host=%v\n", htmlServer.server.Addr)
 		htmlServer.server.ListenAndServe()
@@ -118,6 +117,8 @@ func (htmlServer *HTMLServer) Stop() error {
 	return nil
 }
 
+// runScheduler launches updateCovidStat func to pull
+// updated information periodically (every hour)
 func runScheduler(done chan struct{}) {
 	gocron.Every(1).Hour().From(gocron.NextTick()).Do(updateCovidStat)
 	for {
