@@ -11,7 +11,8 @@ var CoronaWidget = (function () {
             tot_deaths: null,
             new_deaths: null,
             tot_recovered: null,
-            active_cases: null
+            active_cases: null,
+            updateDate: null
         };
 
         this.init();
@@ -27,6 +28,7 @@ var CoronaWidget = (function () {
             new_deaths = this.ui.new_deaths,
             tot_recovered = this.ui.tot_recovered,
             active_cases = this.ui.active_cases,
+            updateDate = this.ui.updateDate,
             resp;
 
         xhr.timeout = 3000;
@@ -42,6 +44,7 @@ var CoronaWidget = (function () {
                     new_deaths.innerHTML = resp['New Deaths_text'] === '' ? '0' : resp['New Deaths_text'];
                     tot_recovered.innerHTML = resp['Total Recovered_text'] === '' ? '0' : resp['Total Recovered_text'];
                     active_cases.innerHTML = resp['Active Cases_text'] === '' ? '0' : resp['Active Cases_text'];
+                    updateDate.innerHTML = resp['Last Update'] === '' ? '' : resp['Last Update'];
                 } else {
                     console.log(`Failed to retrieve COVID-19 statisctic. Server returned status ${this.status}: ${this.responseText}`);
                 }
@@ -72,6 +75,7 @@ var CoronaWidget = (function () {
         this.ui.new_deaths = document.getElementById('new-deaths');
         this.ui.tot_recovered = document.getElementById('tot-recover');
         this.ui.active_cases = document.getElementById('active-cases');
+        this.ui.updateDate = document.getElementById('update-date');
     }
 
     Widget.prototype.__initCountry = function () {

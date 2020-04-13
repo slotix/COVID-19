@@ -215,7 +215,7 @@ func updateCovidStat() {
 		fmt.Printf("Failed unmarshal response into map: %s", err.Error())
 		return
 	}
-	covidStatistics = append(covidStatistics, map[string]string{"Last Update": time.Now().Format("2006-01-02_15:04")})
+	covidStatistics = append(covidStatistics, map[string]string{"Last Update": time.Now().Format("2006-01-02 15:04")})
 }
 
 func writeResponse(w http.ResponseWriter, countryStatistic interface{}) {
