@@ -30,7 +30,7 @@ type HTMLServer struct {
 }
 
 var (
-	payloadFilePath   = "coronaPayload.json"
+	payloadFilePath   = flag.String("z", "./coronaPayload.json", "COVID-19 Payload file")
 	dfkParseAPIServer = flag.String("p", "https://api.dataflowkit.com/v1/parse?api_key=", "DFK API Server address")
 	apiKey            = flag.String("a", "", "DFK API Key")
 	covidStatistics   []map[string]string
