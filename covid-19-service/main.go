@@ -79,6 +79,8 @@ func Start(cfg Config) *HTMLServer {
 	//Get all COVID-19 cases
 	router.HandleFunc("/v1", covidHandler)
 
+	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("../widget"))))
+
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
 
@@ -163,6 +165,7 @@ func covidHandler(w http.ResponseWriter, r *http.Request) {
 	countryStatistic := map[string]string{}
 	for _, countryStatistic = range covidStatistics {
 		if strings.ToLower(countryStatistic["Country_text"]) == strings.ToLower(country) {
+			countryStatistic["Last Update"] = covidStatistics[len(covidStatistics)-1]["Last Update"]
 			writeResponse(w, countryStatistic)
 			return
 		}
@@ -171,6 +174,7 @@ func covidHandler(w http.ResponseWriter, r *http.Request) {
 	//If specifid country not found return the very first result (world)
 	fmt.Println("Not Found")
 	countryStatistic = covidStatistics[0]
+	countryStatistic["Last Update"] = covidStatistics[len(covidStatistics)-1]["Last Update"]
 	writeResponse(w, countryStatistic)
 
 }
@@ -211,6 +215,7 @@ func updateCovidStat() {
 		fmt.Printf("Failed unmarshal response into map: %s", err.Error())
 		return
 	}
+	covidStatistics = append(covidStatistics, map[string]string{"Last Update": time.Now().Format("2006-01-02_15:04")})
 }
 
 func writeResponse(w http.ResponseWriter, countryStatistic interface{}) {
