@@ -30,7 +30,7 @@ type HTMLServer struct {
 }
 
 var (
-	payloadFilePath   = "coronaPayload.json"
+	payloadFilePath   = flag.String("z", "./coronaPayload.json", "COVID-19 Payload file")
 	dfkParseAPIServer = flag.String("p", "https://api.dataflowkit.com/v1/parse?api_key=", "DFK API Server address")
 	apiKey            = flag.String("a", "", "DFK API Key")
 	covidStatistics   []map[string]string
@@ -184,7 +184,7 @@ func covidHandler(w http.ResponseWriter, r *http.Request) {
 // Then DFK API pulls an actual COVID-19 data to covidStatistics map
 func updateCovidStat() {
 	//Load Payload to request live stats from worldometers.info
-	payload, err := ioutil.ReadFile(payloadFilePath)
+	payload, err := ioutil.ReadFile(*payloadFilePath)
 	if err != nil {
 		fmt.Printf("An error occure during reading payload file: %s", err.Error())
 		return

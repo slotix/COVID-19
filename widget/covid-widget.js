@@ -3,7 +3,7 @@ var CoronaWidget = (function () {
     const countryCodeExpression = /loc=([\w]{2})/;
 
     function Widget() {
-        this.url = 'http://0.0.0.0:8008/v1';
+        this.url = 'https://covid-19.dataflowkit.com/v1';
         this.ui = {
             mainContainer: null,
             country: null,
