@@ -9,6 +9,7 @@ It uses [Dataflow Kit API](https://dataflowkit.com) to scrape source web site.
 ## Endpoints
 
 `GET /v1` - Get all COVID-19 cases
+
 `GET /v1/{cntr}` - Get COVID-19 cases for specified country. 
 
 - If no `{cntr}` parameter specified the full dataset will be returned.
