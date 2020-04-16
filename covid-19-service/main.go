@@ -79,7 +79,8 @@ func Start(cfg Config) *HTMLServer {
 	//Get all COVID-19 cases
 	router.HandleFunc("/v1", covidHandler)
 
-	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("../widget"))))
+	router.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("web/assets"))))
+	router.HandleFunc("/", homeHandler)
 
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
@@ -91,6 +92,15 @@ func Start(cfg Config) *HTMLServer {
 		htmlServer.wg.Done()
 	}()
 	return &htmlServer
+}
+
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	buf, err := ioutil.ReadFile("web/index.html")
+	if err != nil{
+		http.Error(w, "404 Not found", http.StatusNotFound)
+		return
+	}
+	io.WriteString(w, string(buf))
 }
 
 //Stop HTTP server.
