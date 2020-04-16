@@ -68,8 +68,8 @@
     color: green;
 }
 
-.deaths {
-    color: darkslateblue
+.deaths-dark {
+    color: grey;
 }
 
 .active {
@@ -197,4 +197,28 @@ body .covid19-card.light_theme {
     border: 0;
     font-size: 14px;
     text-align: right
+}
+
+.flag-img {
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+.link-dfk-dark, :visited {
+    color: white;
+}
+
+.link-dfk-dark:hover, :hover:visited {
+    color: #A91D22;
+}
+
+.link-dfk-light, :visited {
+    color: royalblue;
+}
+
+.link-dfk-light:hover, :hover:visited {
+    color: #A91D22;
 }
