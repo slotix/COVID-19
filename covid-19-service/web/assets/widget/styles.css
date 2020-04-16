@@ -229,6 +229,6 @@ body .covid19-card.light_theme {
     color: white;
 }
 
-.link-dfk-light:hover, :hover:visited {
+.link-dfk:hover, :hover:visited {
     color: red;
 }
