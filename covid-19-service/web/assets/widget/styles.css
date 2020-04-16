@@ -205,6 +205,8 @@ body .covid19-card.light_theme {
     top: 5px;
     height: 25px;
     border-radius: 5px;
+    transform: scale(1);
+    transform-origin: center;
 }
 
 .link-dfk-dark, :visited {
@@ -221,4 +223,12 @@ body .covid19-card.light_theme {
 
 .link-dfk-light:hover, :hover:visited {
     color: #A91D22;
+}
+
+.link-dfk, :visited {
+    color: white;
+}
+
+.link-dfk-light:hover, :hover:visited {
+    color: red;
 }
