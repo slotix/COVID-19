@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link type="text/css" rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <div class="covid19-card  dark_theme "
+        style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,Helvetica Neue,sans-serif">
+        <h4 id="country" class="covid19-title-big"></h4>
+        <div class="covid19-row">
+            <div class="covid19-col covid19-confirmed">
+                <div>
+                    <span id="tot-cases" class="covid19-num confirmed"></span>
+                    <span id="new-cases" class="subsidiary"></span>
+                </div>
+
+                <div class="covid19-title ">Confirmed</div>
+            </div>
+            <div class="covid19-col covid19-deaths">
+                <div>
+                    <span id="tot-deaths" class="covid19-num deaths"></span>
+                    <span id="new-deaths" class="subsidiary"></span>
+                </div>
+                <div class="covid19-title">Deaths</div>
+            </div>
+            <div class="covid19-col covid19-recovered">
+                <div id="tot-recover" class="covid19-num recovered"></div>
+                <div class="covid19-title">Recovered</div>
+            </div>
+        </div>
+        <div class="covid19-row">
+            <div class="covid19-title">Last updated: <span id="update-date" class="covid19-num"></span>
+            </div>
+        </div>
+        <div class="covid19-row">
+            <div class="covid19-title">Built with <a href="https://dataflowkit.com" target="_blank">Dataflow Kit</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./countries.js"></script>
+<script src="./covid-widget.js"></script>
+
+</html>

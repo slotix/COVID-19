@@ -4,6 +4,7 @@ var CoronaWidget = (function () {
 
     function Widget() {
         this.url = 'https://covid-19.dataflowkit.com/v1';
+        //this.url = 'http://0.0.0.0:8008/v1';
         this.ui = {
             mainContainer: null,
             country: null,
@@ -15,6 +16,7 @@ var CoronaWidget = (function () {
             active_cases: null,
             updateDate: null
         };
+        this.country = '';
 
         this.init();
     }
@@ -30,7 +32,9 @@ var CoronaWidget = (function () {
             tot_recovered = this.ui.tot_recovered,
             active_cases = this.ui.active_cases,
             updateDate = this.ui.updateDate,
+            country = this.country,
             resp;
+
 
         xhr.timeout = 3000;
 
@@ -38,13 +42,25 @@ var CoronaWidget = (function () {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     resp = JSON.parse(this.responseText);
-                    cntr.innerHTML = resp['Country_text'] === '' ? '0' : resp['Country_text'];
-                    tot_cases.innerHTML = resp['Total Cases_text'] === '' ? '0' : resp['Total Cases_text'];
-                    new_cases.innerHTML = resp['New Cases_text'] === '' ? '0' : resp['New Cases_text'];
-                    tot_deaths.innerHTML = resp['Total Deaths_text'] === '' ? '0' : resp['Total Deaths_text'];
-                    new_deaths.innerHTML = resp['New Deaths_text'] === '' ? '0' : resp['New Deaths_text'];
-                    tot_recovered.innerHTML = resp['Total Recovered_text'] === '' ? '0' : resp['Total Recovered_text'];
-                    active_cases.innerHTML = resp['Active Cases_text'] === '' ? '0' : resp['Active Cases_text'];
+                    //cntr.innerHTML = resp['Country_text'] === '' ? '0' : resp['Country_text'];
+                    if (tot_cases != null) {
+                        tot_cases.innerHTML = resp['Total Cases_text'] === '' ? '0' : resp['Total Cases_text'];
+                    }
+                    if (new_cases != null) {
+                        new_cases.innerHTML = resp['New Cases_text'] === '' ? '0' : resp['New Cases_text'];
+                    }
+                    if (tot_deaths != null) {
+                        tot_deaths.innerHTML = resp['Total Deaths_text'] === '' ? '0' : resp['Total Deaths_text'];
+                    }
+                    if (new_deaths != null) {
+                        new_deaths.innerHTML = resp['New Deaths_text'] === '' ? '0' : resp['New Deaths_text'];
+                    }
+                    if (tot_recovered != null) {
+                        tot_recovered.innerHTML = resp['Total Recovered_text'] === '' ? '0' : resp['Total Recovered_text'];
+                    }
+                    if (active_cases != null) {
+                        active_cases.innerHTML = resp['Active Cases_text'] === '' ? '0' : resp['Active Cases_text'];
+                    }
                     updateDate.innerHTML = resp['Last Update'] === '' ? '' : resp['Last Update'];
                 } else {
                     console.log(`Failed to retrieve COVID-19 statisctic. Server returned status ${this.status}: ${this.responseText}`);
@@ -60,8 +76,8 @@ var CoronaWidget = (function () {
             console.log('Failed to retrieve COVID-19 statisctic.');
         }
 
-        if (cntr.innerHTML !== '') {
-            this.url += '/' + cntr.innerHTML;
+        if (country !== '') {
+            this.url += '/' + country;
         }
         xhr.open('GET', this.url, true);
         xhr.send();
@@ -111,11 +127,10 @@ var CoronaWidget = (function () {
     Widget.prototype.init = function () {
         this._initUI();
         this.__initCountry().then((countryCode) => {
-            if (countryCode == 'US') {
-                this.ui.country.innerHTML = 'USA';
-            } else {
-                this.ui.country.innerHTML = countryList[countryCode];
-            }
+            //this.ui.country.innerHTML = countryList[countryCode];
+            flag = countryCode.toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397));
+            this.ui.country.innerHTML = flag + ' ' + countryList[countryCode];
+            this.country = countryList[countryCode];
             this._updateData();
         }).catch((err) => {
             console.log(err);
