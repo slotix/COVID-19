@@ -209,26 +209,26 @@ body .covid19-card.light_theme {
     transform-origin: center;
 }
 
-.link-dfk-dark, :visited {
+.link-dfk-dark, .link-dfk-dark:visited {
     color: white;
 }
 
-.link-dfk-dark:hover, :hover:visited {
+.link-dfk-dark:hover, .link-dfk-dark:hover:hover:visited {
     color: #A91D22;
 }
 
-.link-dfk-light, :visited {
+.link-dfk-light, .link-dfk-light:visited {
     color: royalblue;
 }
 
-.link-dfk-light:hover, :hover:visited {
+.link-dfk-light:hover, .link-dfk-light:hover:visited {
     color: #A91D22;
 }
 
-.link-dfk, :visited {
+.link-dfk, .link-dfk:visited {
     color: white;
 }
 
-.link-dfk:hover, :hover:visited {
+.link-dfk:hover, .link-dfk:hover:visited {
     color: red;
 }
