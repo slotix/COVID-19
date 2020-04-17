@@ -85,7 +85,6 @@ func Start(cfg Config) *HTMLServer {
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
 
-	
 	go func() {
 		fmt.Printf("\nCOVID-19 Service : started : Host=%v\n", htmlServer.server.Addr)
 		htmlServer.server.ListenAndServe()
@@ -95,12 +94,15 @@ func Start(cfg Config) *HTMLServer {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	buf, err := ioutil.ReadFile("web/index.html")
-	if err != nil{
-		http.Error(w, "404 Not found", http.StatusNotFound)
+	if r.URL.Path != "/" {
+		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
-	io.WriteString(w, string(buf))
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	http.ServeFile(w, r, "web/index.html")
 }
 
 //Stop HTTP server.
