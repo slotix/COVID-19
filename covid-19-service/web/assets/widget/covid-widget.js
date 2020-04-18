@@ -127,9 +127,8 @@ var CoronaWidget = (function () {
     Widget.prototype.init = function () {
         this._initUI();
         this.__initCountry().then((countryCode) => {
-            //this.ui.country.innerHTML = countryList[countryCode];
-            flag = countryCode.toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397));
-            this.ui.country.innerHTML = flag + ' ' + countryList[countryCode];
+            flag = '<img class="flag-img" src="./flags/' + countryCode.toLowerCase() + '.svg" alt="' + countryList[countryCode] + '">';
+            this.ui.country.innerHTML = flag + '&nbsp' + countryList[countryCode];
             this.country = countryList[countryCode];
             this._updateData();
         }).catch((err) => {
