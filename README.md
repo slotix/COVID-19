@@ -8,13 +8,20 @@ It uses [Dataflow Kit API](https://dataflowkit.com) to scrape source web site.
 
 ## Endpoints
 
-`GET /v1` - Get all COVID-19 cases
+`GET /v1` - List all COVID-19 cases per country.
 
-`GET /v1/{cntr}` - Get COVID-19 cases for specified country. 
+`GET /v1/{cntr}` - Return COVID-19 cases for specified country. 
 
 - If no `{cntr}` parameter specified the full dataset will be returned.
 - Specify `{cntr}` parameter to extract results *for this country only*.
 - Specify *world* as `{cntr}` parameter to extract summary results *for the whole world.*
+
+Examples:
+
+`https://covid-19.dataflowkit.com/v1/world` - summary results for the whole world.
+`https://covid-19.dataflowkit.com/v1/spain` -  COVID-19 cases for Spain.
+`https://covid-19.dataflowkit.com/v1/usa` -  COVID-19 cases for the USA.
+
 
 ## Installation
 
@@ -55,16 +62,10 @@ https://covid-19.dataflowkit.com/v1
 https://covid-19.dataflowkit.com/v1/world
 
 
-## Informer.
+## Widgets (Informers).
 
-Our public informer is available at: 
+Free Coronavirus (COVID-19) widgets are available at: 
 
-https://covid-19.dataflowkit.com/covid-19.html
+https://covid-19.dataflowkit.com
 
-You can use the following code to embed it into other HTML pages: 
 
-```html
-    <iframe src="https://covid-19.dataflowkit.com/covid-19.html" 
-        frameborder="0" scrolling="no" width="200" height="220">
-    </iframe>
-```
