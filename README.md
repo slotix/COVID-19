@@ -19,7 +19,9 @@ It uses [Dataflow Kit API](https://dataflowkit.com) to scrape source web site.
 Examples:
 
 `https://covid-19.dataflowkit.com/v1/world` - summary results for the whole world.
+
 `https://covid-19.dataflowkit.com/v1/spain` -  COVID-19 cases for Spain.
+
 `https://covid-19.dataflowkit.com/v1/usa` -  COVID-19 cases for the USA.
 
 
@@ -67,5 +69,7 @@ https://covid-19.dataflowkit.com/v1/world
 Free Coronavirus (COVID-19) widgets are available at: 
 
 https://covid-19.dataflowkit.com
+
+Your website visitor's country is determined automatically.
 
 
