@@ -1,8 +1,11 @@
+// CoronaWidget object holds properties and methods for retrieving live statistics of COVID-19 cases.  
 var CoronaWidget = (function () {
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
     const countryCodeExpression = /loc=([\w]{2})/;
 
-    function Widget() {
+    //Widget constructor
+    function Widget() { 
+        // URL of API server, which serves endpoints for getting live statistics
         this.url = 'https://covid-19.dataflowkit.com/v1';
         //this.url = 'http://0.0.0.0:8008/v1';
         this.ui = {
@@ -17,14 +20,12 @@ var CoronaWidget = (function () {
             updateDate: null
         };
         this.country = '';
-
         this.init();
     }
-
+    // Send requests to COVID-19 API and parse results for a specific country.
     Widget.prototype._updateData = function (e) {
         e && e.preventDefault();
         var xhr = new XHR(),
-            cntr = this.ui.country,
             tot_cases = this.ui.tot_cases,
             new_cases = this.ui.new_cases,
             tot_deaths = this.ui.tot_deaths,
@@ -34,15 +35,12 @@ var CoronaWidget = (function () {
             updateDate = this.ui.updateDate,
             country = this.country,
             resp;
-
-
         xhr.timeout = 3000;
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     resp = JSON.parse(this.responseText);
-                    //cntr.innerHTML = resp['Country_text'] === '' ? '0' : resp['Country_text'];
                     if (tot_cases != null) {
                         tot_cases.innerHTML = resp['Total Cases_text'] === '' ? '0' : resp['Total Cases_text'];
                     }
@@ -83,6 +81,7 @@ var CoronaWidget = (function () {
         xhr.send();
     }
 
+    // _initUI associates Widget members with HTML DOM structure elements. 
     Widget.prototype._initUI = function () {
         this.ui.mainContainer = document.getElementById('container');
         this.ui.country = document.getElementById('country');
@@ -95,6 +94,7 @@ var CoronaWidget = (function () {
         this.ui.updateDate = document.getElementById('update-date');
     }
 
+    //automatic country determination.
     Widget.prototype.__initCountry = function () {
         return new Promise((resolve, reject) => {
             var xhr = new XHR();
@@ -112,19 +112,17 @@ var CoronaWidget = (function () {
                         reject(xhr.status)
                     }
                 }
-
             }
             xhr.ontimeout = function () {
                 reject('timeout')
             }
-
             xhr.open('GET', 'https://www.cloudflare.com/cdn-cgi/trace', true);
             xhr.send();
         });
-
     }
 
     Widget.prototype.init = function () {
+        // _initUI associates Widget members with HTML DOM structure elements. 
         this._initUI();
         this.__initCountry().then((countryCode) => {
             flag = '<img class="flag-img" src="./flags/' + countryCode.toLowerCase() + '.svg" alt="' + countryList[countryCode] + '">';
