@@ -81,6 +81,7 @@ func Start(cfg Config) *HTMLServer {
 
 	router.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("web/assets"))))
 	router.HandleFunc("/", homeHandler)
+	router.HandleFunc("/sitemap.xml", sitemapHandler)
 
 	// Add to the WaitGroup for the listener goroutine
 	htmlServer.wg.Add(1)
@@ -103,6 +104,10 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.ServeFile(w, r, "web/index.html")
+}
+
+func sitemapHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "web/sitemap.xml")
 }
 
 //Stop HTTP server.

@@ -13,6 +13,16 @@
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" integrity="sha256-cuvic28gVvjQIo3Q4hnRpQSNB0aMw3C+kjkR0i+hrWg=" crossorigin="anonymous" /> -->
 	<link rel="stylesheet" href="assets/css/prism.css">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137084-5"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-137084-5');
+	</script>
+
 </head>
 
 <body class="is-preload homepage">
@@ -34,26 +44,6 @@
 					<ul>
 						<li class="current"><a href="https://blog.dataflowkit.com"><i
 									class="fas fa-blog"></i>&nbsp;&nbsp;Blog</a></li>
-						<!-- <li>
-							<a href="#">Dropdown</a>
-							<ul>
-								<li><a href="#">Lorem ipsum dolor</a></li>
-								<li><a href="#">Magna phasellus</a></li>
-								<li>
-									<a href="#">Phasellus consequat</a>
-									<ul>
-										<li><a href="#">Lorem ipsum dolor</a></li>
-										<li><a href="#">Phasellus consequat</a></li>
-										<li><a href="#">Magna phasellus</a></li>
-										<li><a href="#">Etiam dolore nisl</a></li>
-									</ul>
-								</li>
-								<li><a href="#">Veroeros feugiat</a></li>
-							</ul>
-						</li> -->
-						<!-- <li><a href="left-sidebar.html">Left Sidebar</a></li>
-						<li><a href="right-sidebar.html">Right Sidebar</a></li>
-						<li><a href="no-sidebar.html">No Sidebar</a></li> -->
 					</ul>
 				</nav>
 
@@ -77,24 +67,21 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="col-7 col-12-medium">
-			<div class="image featured">
-				<img src="images/COVID-19.png" alt="covid-19 cover" />
-			</div>
-		</div> -->
+
 		<!-- Features -->
 		<div id="features-wrapper">
 			<div class="container">
-				<div class="row gtr-200">
+				<div class="row">
 					<div class="col-4 col-12-medium">
-						<iframe src="https://covid-19.dataflowkit.com/assets/widget/covid-19.html" frameborder="0"
-							scrolling="no" width="250" height="250">
-						</iframe>
 						<div class="inner">
 							<header>
 								<h2>Classic theme</h2>
 							</header>
 						</div>
+						<iframe src="https://covid-19.dataflowkit.com/assets/widget/covid-19.html" frameborder="0"
+							scrolling="no" width="250" height="250">
+						</iframe>
+						
 
 						<pre><code id="code1" class="language-markup">&lt;iframe src=&quot;https://covid-19.dataflowkit.com/assets/widget/covid-19.html&quot; 
 	frameborder=&quot;0&quot; scrolling=&quot;no&quot;
@@ -106,14 +93,15 @@
 							Copy</button>
 					</div>
 					<div class="col-4 col-12-medium">
-						<iframe src="https://covid-19.dataflowkit.com/assets/widget/c19-widget-light.html"
-							frameborder="0" scrolling="no" width="400" height="250">
-						</iframe>
 						<div class="inner">
 							<header>
 								<h2>Light theme</h2>
 							</header>
 						</div>
+						<iframe src="https://covid-19.dataflowkit.com/assets/widget/c19-widget-light.html"
+							frameborder="0" scrolling="no" width="400" height="250">
+						</iframe>
+						
 
 						<pre><code id="code2" class="language-markup">&lt;iframe src=&quot;https://covid-19.dataflowkit.com/assets/widget/c19-widget-light.html&quot; 
 	frameborder=&quot;0&quot; scrolling=&quot;no&quot;
@@ -127,14 +115,15 @@
 
 					</div>
 					<div class="col-4 col-12-medium">
-						<iframe src="https://covid-19.dataflowkit.com/assets/widget/c19-widget-dark.html"
-							frameborder="0" scrolling="no" width="400" height="250">
-						</iframe>
 						<div class="inner">
 							<header>
 								<h2>Dark theme</h2>
 							</header>
 						</div>
+						<iframe src="https://covid-19.dataflowkit.com/assets/widget/c19-widget-dark.html"
+							frameborder="0" scrolling="no" width="400" height="250">
+						</iframe>
+						
 
 						<pre><code id="code3" class="language-markup">&lt;iframe src=&quot;https://covid-19.dataflowkit.com/assets/widget/c19-widget-dark.html&quot; 
 frameborder=&quot;0&quot; scrolling=&quot;no&quot;
@@ -147,58 +136,133 @@ width=&quot;400&quot; height=&quot;250&quot;&gt;
 
 					</div>
 				</div>
+				<div class="row">
+					<div class="lead-block">
+						<p>Copy the code of the desired widget and paste it to your web site.</p>
+						<p>Adjust the width and height of the iFrame provided to fit within your site.</p>
+						<p>Your website visitor's country is determined automatically.</p>
+					</div>
+				</div>
 			</div>
 		</div>
 
 		<!-- Main -->
 		<div id="main-wrapper">
-			<div class="container">
-				<div class="row gtr-200">
-					<!-- <div class="col-4 col-12-medium">
+			<div class=" container">
+				<div class="row">
+					<h2>A free API for data on the Coronavirus (COVID-19)</h2>
+					<div class="lead-block">
+						<p>Access live statistics data through the DFK COVID-19 API for free.</p>
+						<p>Build widgets, mobile apps, or integrate into other applications.
+						</p>
+						<p>Data source: <a href="https://www.worldometers.info/coronavirus/#countries"
+								target="_blank">Worldometers</a></p>
+					</div>
+					<div class="col-12 col-12-medium">
+						<h3>API Endpoints</h3>
+						<div class="row ">
+							<div class="col-6 col-12-medium">
+								<p><strong>GET /v1</strong> - List ALL COVID-19 cases per country.</p>
+								<p>
+									<ul>
+										<li>If no <strong>{country}</strong> parameter specified the full dataset will
+											be returned.</li>
+									</ul>
+								</p>
+							</div>
+							<div class="col-6 col-12-medium">
+								<p><strong>GET /v1/{contry}</strong> - Return COVID-19 cases for specified
+									country.</p>
+								<p>
+									<ul>
+										<li>Specify <strong>{contry}</strong> parameter to extract results for this
+											country only.</li>
+										<li>To extract summary results for the whole world put <em>"world"</em> value as
+											<strong>{country}</strong> parameter.</li>
+									</ul>
+								</p>
+							</div>
+						</div>
+						<div class="row ">
+							<div class="col-6 col-12-medium">
+								<h4>Response</h4>
+								<pre style="height: 300px;"><code id="code3" class="language-json">[
+	{
+	   "Active Cases_text":"1,567,323",
+	   "Country_text":"World",
+	   "Last Update":"2020-04-18 21:18",
+	   "New Cases_text":"+73,499",
+	   "New Deaths_text":"+5,523",
+	   "Total Cases_text":"2,322,362",
+	   "Total Deaths_text":"159,668",
+	   "Total Recovered_text":"595,371"
+	},
+	{
+	   "Active Cases_text":"658,930",
+	   "Country_text":"Europe",
+	   "New Cases_text":"+27,607",
+	   "New Deaths_text":"+2,964",
+	   "Total Cases_text":"1,056,821",
+	   "Total Deaths_text":"99,192",
+	   "Total Recovered_text":"298,699"
+	},
+	{
+	   "Active Cases_text":"664,104",
+	   "Country_text":"North America",
+	   "New Cases_text":"+27,586",
+	   "New Deaths_text":"+1,876",
+	   "Total Cases_text":"787,341",
+	   "Total Deaths_text":"41,298",
+	   "Total Recovered_text":"81,939"
+	},
+	"...",
+	{
+	   "Last Update":"2020-04-18 21:18"
+	}
+ ]</code></pre>
+							</div>
+							<div class="col-6 col-12-medium">
+								<h4>Response</h4>
+								<pre style="height: 300px;"><code id="code3" class="language-json">{
+	"Active Cases_text":"1,568,631",
+	"Country_text":"World",
+	"Last Update":"2020-04-18 22:18",
+	"New Cases_text":"+74,896",
+	"New Deaths_text":"+5,602",
+	"Total Cases_text":"2,323,759",
+	"Total Deaths_text":"159,747",
+	"Total Recovered_text":"595,381"
+ }</code></pre>
 
-				
-						<div id="sidebar">
-							<section class="widget thumbnails">
-								<h3>Interesting stuff</h3>
-								<div class="grid">
-									<div class="row gtr-50">
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic04.jpg"
-													alt="" /></a></div>
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic05.jpg"
-													alt="" /></a></div>
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic06.jpg"
-													alt="" /></a></div>
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic07.jpg"
-													alt="" /></a></div>
-									</div>
-								</div>
-								<a href="#" class="button icon fa-file-alt">More</a>
-							</section>
+							</div>
+						</div>
+						<div class="row ">
+							<div class="col-12 col-12-medium">
+								<h3>Examples:</h3>
+								<ul>
+									<li><a href="https://covid-19.dataflowkit.com/v1"
+											target="_blank">https://covid-19.dataflowkit.com/v1</a>
+										- List all results per country.</li>
+									<li><a href="https://covid-19.dataflowkit.com/v1/world"
+											target="_blank">https://covid-19.dataflowkit.com/v1/world</a>
+										- summary results for the whole world.</li>
+									<li><a href="https://covid-19.dataflowkit.com/v1/spain"
+											target="_blank">https://covid-19.dataflowkit.com/v1/spain</a>
+										- COVID-19 cases for Spain.</li>
+									<li><a href="https://covid-19.dataflowkit.com/v1/USA"
+											target="_blank">https://covid-19.dataflowkit.com/v1/USA</a>
+										- COVID-19 cases for USA.</li>
+								</ul>
+							</div>
+
 						</div>
 
 					</div>
-					<div class="col-8 col-12-medium imp-medium">
 
-						
-						<div id="content">
-							<section class="last">
-								<h2>So what's this all about?</h2>
-								<p>This is <strong>Verti</strong>, a free and fully responsive HTML5 site template by <a
-										href="http://html5up.net">HTML5 UP</a>.
-									Verti is released under the <a href="http://html5up.net/license">Creative Commons
-										Attribution license</a>, so feel free to use it for any personal or commercial
-									project you might have going on (just don't forget to credit us for the design!)</p>
-								<p>Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus. Praesent
-									semper bibendum ipsum, et tristique augue fringilla eu. Vivamus id risus vel dolor
-									auctor euismod quis eget mi. Etiam eu ante risus. Aliquam erat volutpat. Aliquam
-									luctus mattis lectus sit amet phasellus quam turpis.</p>
-								<a href="#" class="button icon solid fa-arrow-circle-right">Continue Reading</a>
-							</section>
-						</div>
-
-					</div> -->
 				</div>
 			</div>
+			<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+<div class="elfsight-app-a19450db-a49f-438c-bce9-9b952b4e1ccb"></div>
 		</div>
 
 		<!-- Footer -->
@@ -226,13 +290,12 @@ width=&quot;400&quot; height=&quot;250&quot;&gt;
 						<section class="widget contact last">
 							<h3>Contact Us</h3>
 							<ul>
-								<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a>
+								<li><a href="https://twitter.com/dataflowkit" class="icon brands fa-twitter"><span
+											class="label">Twitter</span></a>
 								</li>
-								<li><a href="#" class="icon brands fa-facebook-f"><span
-											class="label">Facebook</span></a></li>
-
+								<li><a href="https://www.facebook.com/dataflowkit/"
+										class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
 							</ul>
-
 						</section>
 
 					</div>
@@ -241,8 +304,8 @@ width=&quot;400&quot; height=&quot;250&quot;&gt;
 					<div class="col-12">
 						<div id="copyright">
 							<ul class="menu">
-								<li>&copy; Dataflow Kit. All rights reserved</li>
-								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>&copy; <a href="https://dataflowkit.com">Dataflow Kit.</a> All rights reserved</li>
+								<li>Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a></li>
 							</ul>
 						</div>
 					</div>
