@@ -1,0 +1,184 @@
+/* COMMON STYLES */
+
+.container {
+    font-family: monospace;
+}
+
+.table {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    /*background: #2c2935;*/
+    overflow: hidden;
+}
+
+.cell-header {
+    justify-content: center;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+
+.cell {
+    align-items: center;
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: 100%;
+    overflow: hidden;
+    list-style: none;
+    /*border: solid 1px black;*/
+    display: inline-flex;
+    padding: 5px;
+}
+
+.col3 > .cell { width: 33.33%; }
+.col4 > .cell { width: 25%; }
+.col5 > .cell { width: 20%; }
+.col6 > .cell { width: 16.6%; }
+
+.country {
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+    font-weight: bolder;
+}
+
+.country-flag {
+    height: 15px;
+    width: 25px;
+    padding-right: 10px;
+    padding-left: 5px;
+}
+
+.cases, .plus-cases, .active-cases, .deaths, .plus-deaths, .recovered {
+    justify-content: center;
+}
+
+.plus-cases {
+    margin-left: 5px;
+    padding: 0px 5px;
+    border-radius: 4px;
+    /* common colors */
+    background: red;
+    color: white;
+}
+
+.plus-deaths {
+    margin-left: 5px;
+    padding: 0px 5px;
+    border-radius: 4px;
+    /* common colors */
+    background: black;
+    color: lightgrey;
+}
+
+
+
+
+/* LIGHT THEME */
+
+.container.light-theme {
+    font-family: monospace;
+    background: white;
+}
+
+.light-theme > .table {
+    background: #e4e4e4;
+}
+
+.light-theme > .table > .cell {
+    background: inherit;
+}
+
+.light-theme > .table > .cell-header {
+    font-weight: bolder;
+    border-bottom: 1px dotted black;
+}
+
+.light-theme > .table > .country {
+    font-weight: bold;
+    color: black;
+}
+
+.light-theme > .table > .cases {
+    color: red;
+}
+
+.light-theme > .table > .cases > .plus-cases {
+    background: indianred;
+    color: lightgrey;
+}
+
+.light-theme > .table > .active-cases {
+    color: #2c2935;
+}
+
+.light-theme > .table > .deaths {
+    color: black;
+}
+
+.light-theme > .table > .deaths > .plus-deaths {
+    background: #2c2935;
+    color: lightgrey;
+}
+
+.light-theme > .table > .recovered {
+    color: darkgreen;
+    font-weight: bolder;
+}
+
+
+
+
+/* DARK THEME */
+
+.container.dark-theme {
+    font-family: monospace;
+    background: white;
+}
+
+.dark-theme > .table {
+    background: #2c2935;
+}
+
+.dark-theme > .table > .cell {
+    background: inherit;
+}
+
+.dark-theme > .table > .cell-header {
+    color: lightgrey;
+    font-weight: bolder;
+    border-bottom: 1px dotted white;
+}
+
+.dark-theme > .table > .country {
+    font-weight: bold;
+    color: lightgrey;
+}
+
+.dark-theme > .table > .cases {
+    color: lightgrey;
+}
+
+.dark-theme > .table > .cases > .plus-cases {
+    background: darkred;
+    color: white;
+}
+
+.dark-theme > .table > .active-cases {
+    color: yellow;
+}
+
+.dark-theme > .table > .deaths {
+    color: lightgrey;
+}
+
+.dark-theme > .table > .deaths > .plus-deaths {
+    background: black;
+    color: lightblue;
+}
+
+.dark-theme > .table > .recovered {
+    color: lightgreen;
+    font-weight: bolder;
+}
+
