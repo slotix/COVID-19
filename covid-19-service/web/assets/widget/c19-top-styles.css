@@ -15,7 +15,15 @@
 .cell-header {
     justify-content: center;
     font-weight: bold;
-    border-bottom: 1px solid black;
+    border-bottom: 0.5px solid darkgrey;
+    margin-bottom: 5px;
+}
+
+.cell-footer {
+    justify-content: center;
+    border-top: 0.5px solid darkgrey;
+    margin-top:5px;
+    margin-bottom: 5px;
 }
 
 .cell {
@@ -91,8 +99,9 @@
 
 .light-theme > .table > .cell-header {
     font-weight: bolder;
-    border-bottom: 1px dotted black;
+    border-bottom: 1px solid darkgrey;
 }
+
 
 .light-theme > .table > .country {
     font-weight: bold;
@@ -147,7 +156,11 @@
 .dark-theme > .table > .cell-header {
     color: lightgrey;
     font-weight: bolder;
-    border-bottom: 1px dotted white;
+    border-bottom: 1px solid grey;
+}
+
+.dark-theme > .table > .cell-footer {
+    color: lightgrey;
 }
 
 .dark-theme > .table > .country {
@@ -182,3 +195,27 @@
     font-weight: bolder;
 }
 
+
+.dark-theme > .link-dfk, .dark-theme > .link-dfk:visited {
+    color: white;
+}
+
+.dark-theme > .link-dfk:hover, .dark-theme > .link-dfk:hover:hover:visited {
+    color: #A91D22;
+}
+
+.light-theme > .link-dfk, .light-theme > .link-dfk:visited {
+    color: royalblue;
+}
+
+.light-theme > .link-dfk:hover, .light-theme > .link-dfk:hover:visited {
+    color: #A91D22;
+}
+
+.link-dfk, .link-dfk:visited {
+    color: royalblue;
+}
+
+.link-dfk:hover, .link-dfk:hover:visited {
+    color: red;
+}

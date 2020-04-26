@@ -6,6 +6,7 @@ let CoronaTopWidget = (function () {
     function Widget() {
         this.ui = {
             table: null,
+            lastUpdate: "",
         };
         this.init();
     }
@@ -27,7 +28,7 @@ let CoronaTopWidget = (function () {
         }
 
         /* Cells */
-        for(let obj of countriesArray) {
+        for (let obj of countriesArray) {
 
             /* Country */
             let country = document.createElement("div");
@@ -66,6 +67,12 @@ let CoronaTopWidget = (function () {
             /* append */
             this.ui.table.append(country, cases, deaths, recovered, active);
         }
+
+        /* Footer */
+        let footer = document.createElement("div");
+        footer.className = "cell cell-footer";
+        footer.innerHTML = "Updated: " + this.ui.lastUpdate + `&nbsp;&nbsp;<div>Built with <a class="link-dfk" href="https://dataflowkit.com" target="blank">DataflowKit</a></div>`;
+        this.ui.table.append(footer);
     }
 
     Widget.prototype._initUI = function () {
@@ -76,6 +83,7 @@ let CoronaTopWidget = (function () {
     // sortDesc bool. if true then sort will be descending. false - ascending
     // sortField string. field of country's object which will be used for the sort
     Widget.prototype.__initTopCounties = function (countriesAmount, sortField, sortDesc) {
+        var self = this;
         return new Promise((resolve, reject) => {
             let xhr = new XHR();
             xhr.timeout = 3000;
@@ -87,10 +95,11 @@ let CoronaTopWidget = (function () {
                     if (this.status == 200) {
                         sortDesc ? sortDesc = -1 : sortDesc = 1;
                         var results = JSON.parse(this.responseText);
+                        self.ui.lastUpdate = results[results.length - 1]['Last Update'];
                         results = results.filter((obj) => (obj[sortField]));
 
                         // sort results
-                        results = results.sort((a,b) => {
+                        results = results.sort((a, b) => {
                             var intA = parseInt(a[sortField].replace(/\D+/g, ""));
                             var intB = parseInt(b[sortField].replace(/\D+/g, ""));
                             if (intA === intB)
@@ -101,21 +110,16 @@ let CoronaTopWidget = (function () {
                                 return -1 * sortDesc;
                             }
                         });
-
                         results = results.slice(0, countriesAmount);
                         resolve(results);
                     } else {
                         reject(xhr.status);
                     }
                 }
-
             }
-
-
             xhr.open('GET', 'https://covid-19.dataflowkit.com/v1', true);
             xhr.send();
         });
-
     }
 
     Widget.prototype.init = function () {
