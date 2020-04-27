@@ -99,7 +99,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
-	if r.Method != "GET" {
+	if r.Method != "GET" || r.Method != "HEAD"{
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
