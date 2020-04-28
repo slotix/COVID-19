@@ -1128,9 +1128,6 @@ ul.menu {
   box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.05);
   padding: 5em 0 5em 0; }
 
-#footer-wrapper {
-  padding: 6em 0 8em 0; }
-
 /* Header */
 #header {
   position: relative; }
@@ -1276,7 +1273,6 @@ ul.menu {
 
 #copyright {
   color: #aaa;
-  padding: 4em 0 0 0;
   text-align: center; }
   #copyright a {
     color: inherit; }
@@ -1359,9 +1355,6 @@ ul.menu {
   #header-wrapper {
     padding: 3em 0 1em 0;
     text-align: center; }
-
-  #footer-wrapper {
-    padding: 6em 0 4em 0; }
 
   /* Header */
   #header {
