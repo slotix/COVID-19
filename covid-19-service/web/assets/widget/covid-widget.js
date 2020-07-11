@@ -4,7 +4,7 @@ var CoronaWidget = (function () {
     const countryCodeExpression = /loc=([\w]{2})/;
 
     //Widget constructor
-    function Widget() { 
+    function Widget() {
         // URL of API server, which serves endpoints for getting live statistics
         this.url = 'https://covid-19.dataflowkit.com/v1';
         //this.url = 'http://0.0.0.0:8008/v1';
@@ -138,3 +138,38 @@ var CoronaWidget = (function () {
 })();
 
 new CoronaWidget();
+
+const countryCodeExpression = /loc=([\w]{2})/;
+const userIPExpression = /ip=([\w\.]+)/;
+
+//automatic country determination.
+function initCountry() {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.timeout = 3000;
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    countryCode = countryCodeExpression.exec(this.responseText)
+                    ip = userIPExpression.exec(this.responseText)
+                    if (countryCode === null || countryCode[1] === '' ||
+                        ip === null || ip[1] === '') {
+                        reject('IP/Country code detection failed');
+                    }
+                    let result = {
+                        "countryCode": countryCode[1],
+                        "IP": ip[1]
+                    };
+                    resolve(result)
+                } else {
+                    reject(xhr.status)
+                }
+            }
+        }
+        xhr.ontimeout = function () {
+            reject('timeout')
+        }
+        xhr.open('GET', 'https://www.cloudflare.com/cdn-cgi/trace', true);
+        xhr.send();
+    });
+}
