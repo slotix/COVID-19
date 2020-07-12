@@ -71,7 +71,7 @@ let CoronaTopWidget = (function () {
         /* Footer */
         let footer = document.createElement("div");
         footer.className = "cell cell-footer";
-        footer.innerHTML = "Updated: " + this.ui.lastUpdate + `&nbsp;&nbsp;<div>Built with <a class="link-dfk" href="https://dataflowkit.com" target="blank">DataflowKit</a></div>`;
+        footer.innerHTML = "Updated: " + this.ui.lastUpdate + `&nbsp;&nbsp;<div>Powered by <a class="link-dfk" href="https://dataflowkit.com" target="blank">DataflowKit web scraper</a></div>`;
         this.ui.table.append(footer);
     }
 
