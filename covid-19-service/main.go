@@ -236,6 +236,7 @@ func updateCovidStat() {
 		return
 	}
 	covidStatistics = append(covidStatistics, map[string]string{"Last Update": time.Now().Format("2006-01-02 15:04")})
+	fmt.Printf("Stats updated successfuly...\n")
 }
 
 func writeResponse(w http.ResponseWriter, countryStatistic interface{}) {
