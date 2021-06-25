@@ -190,7 +190,7 @@ func covidHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//If specifid country not found return the very first result (world)
-	fmt.Println("Not Found")
+	fmt.Printf("%s Not Found\n", country)
 	countryStatistic = covidStatistics[0]
 	countryStatistic["Last Update"] = covidStatistics[len(covidStatistics)-1]["Last Update"]
 	writeResponse(w, countryStatistic)
@@ -202,7 +202,7 @@ func covidHandler(w http.ResponseWriter, r *http.Request) {
 func updateCovidStat() {
 	//Load Payload to request live stats from worldometers.info
 	fmt.Printf("Sending request to worldometers.info...\n")
-	
+
 	payload, err := ioutil.ReadFile(*payloadFilePath)
 	if err != nil {
 		fmt.Printf("An error occured during reading payload file: %s", err.Error())
