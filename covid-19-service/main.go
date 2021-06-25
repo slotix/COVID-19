@@ -201,9 +201,10 @@ func covidHandler(w http.ResponseWriter, r *http.Request) {
 // Then DFK API pulls an actual COVID-19 data to covidStatistics map
 func updateCovidStat() {
 	//Load Payload to request live stats from worldometers.info
+	fmt.Printf("Sending request to worldometers.info...")
 	payload, err := ioutil.ReadFile(*payloadFilePath)
 	if err != nil {
-		fmt.Printf("An error occure during reading payload file: %s", err.Error())
+		fmt.Printf("An error occured during reading payload file: %s", err.Error())
 		return
 	}
 	//Send POST request to Dataflowkit Scraping API.
@@ -219,7 +220,7 @@ func updateCovidStat() {
 			fmt.Printf("Failed to read respose body: %s", err.Error())
 			return
 		}
-		fmt.Printf("Failed to get COVID-19 statistics. Server returned: %s", string(body))
+		fmt.Printf("Failed to get COVID-19 statistics. Status: %d.\n Server returned: %s", response.StatusCode, string(body))
 		return
 	}
 	//StatusOk
