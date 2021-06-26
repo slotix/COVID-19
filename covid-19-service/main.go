@@ -34,6 +34,7 @@ var (
 	dfkParseAPIServer = flag.String("p", "https://api.dataflowkit.com/v1/parse?api_key=", "DFK API Server address")
 	apiKey            = flag.String("a", "", "DFK API Key")
 	covidStatistics   []map[string]string
+	mutex             = &sync.Mutex{}
 )
 
 func init() {
@@ -183,7 +184,9 @@ func covidHandler(w http.ResponseWriter, r *http.Request) {
 	countryStatistic := map[string]string{}
 	for _, countryStatistic = range covidStatistics {
 		if strings.ToLower(countryStatistic["Country_text"]) == strings.ToLower(country) {
+			mutex.Lock()
 			countryStatistic["Last Update"] = covidStatistics[len(covidStatistics)-1]["Last Update"]
+			mutex.Unlock()
 			writeResponse(w, countryStatistic)
 			return
 		}
